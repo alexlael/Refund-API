@@ -1,0 +1,27 @@
+{
+  "compilerOptions": {
+    // Compila para uma versão moderna do JavaScript que o Node suporta bem
+    "target": "ES2022",
+     // Usa as bibliotecas padrão mais atualizadas disponíveis (Promise, Array, etc)
+    "lib": ["ES2023"],
+
+     // Permite importar arquivos usando @/ (atalho para src/)
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+     // Define como os módulos serão tratados (usamos import/export nativo do Node 16+)
+    "module": "Node16",
+
+    // Permite usar sintaxe `import express from 'express'` com pacotes CommonJS
+    "esModuleInterop": true,
+
+     // Garante consistência de letras maiúsculas/minúsculas em imports (evita bugs no Linux/mac)
+    "forceConsistentCasingInFileNames": true,
+
+    // Liga todas as checagens de segurança do TypeScript
+    "strict": true,
+
+    // Ignora verificação de tipos nos pacotes
+    "skipLibCheck": true
+  }
+}

@@ -1,11 +1,16 @@
 import { Router } from "express";
 import { RefundsController } from "@/controllers/refunds-controller";
+import { verifyUserAuthorization } from "@/middlewares/verify-user-authorization";
 
 const refundsRoutes = Router();
 
 const refundsController = new RefundsController();
 
-// @ts-ignore
-refundsRoutes.post("/", refundsController.create);
+refundsRoutes.post(
+  "/",
+  verifyUserAuthorization(["employee"]),
+  // @ts-ignore
+  refundsController.create
+);
 
 export { refundsRoutes };

@@ -40,8 +40,8 @@ enum UserRole{
 
   model Refunds{
     id String @id @default(uuid())
+    name String
     amount Float
-    description String
     category Category
     filename String
 

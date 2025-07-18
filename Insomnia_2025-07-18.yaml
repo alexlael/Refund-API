@@ -1,0 +1,296 @@
+type: collection.insomnia.rest/5.0
+name: Refund-API
+meta:
+  id: wrk_e73d4fa7e599414588f1a8b5af0231b2
+  created: 1751994014340
+  modified: 1751994014340
+collection:
+  - name: Users
+    meta:
+      id: fld_b5d48862bde948399a5169f92ed90059
+      created: 1752397632856
+      modified: 1752397900219
+      sortKey: -1752397632856
+    children:
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_0599087966664ac1b276a2a99c6b1716
+          created: 1752397667036
+          modified: 1752798861506
+          isPrivate: false
+          sortKey: -1752397667036
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "lael",
+            	"email": "lael@email.com",
+            	"role": "employee",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: users
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+  - name: Session
+    meta:
+      id: fld_ea05c183469b49f59f6d3d7aab26edac
+      created: 1752515784539
+      modified: 1752515816548
+      sortKey: -1752515784539
+    children:
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_44a7ade75fac46cea1a0e432c1e459f0
+          created: 1752515819997
+          modified: 1752849575488
+          isPrivate: false
+          sortKey: -1752515819997
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"email": "alex@email.com",
+            	"password": "123456"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: sessions
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+  - name: Refunds
+    meta:
+      id: fld_1238275d187e4d988cf81563396f78c3
+      created: 1752520047368
+      modified: 1752520070747
+      sortKey: -1752520047368
+    children:
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE }}"
+        name: create
+        meta:
+          id: req_1ef28e9d19d54e8185b58fae5abd0a4d
+          created: 1752520080760
+          modified: 1752802901172
+          isPrivate: false
+          sortKey: -1752520084272
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"name": "Uber aeroporto",
+            	"category": "transport",
+            	"amount": 1,
+            	"filename": "pinsdasddsadsadasdasdasdto.gif"	
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_44a7ade75fac46cea1a0e432c1e459f0',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE }}"
+        name: Index
+        meta:
+          id: req_0fa94ad23b65444ca8e3cf0e2b29e9f4
+          created: 1752716018203
+          modified: 1752801197944
+          isPrivate: false
+          sortKey: -1752517952134.5
+        method: GET
+        parameters:
+          - id: pair_2b5924c8298649a285a8f6ad91353020
+            name: name
+            value: alex
+            disabled: false
+          - id: pair_453462341e834c668869838146b224ad
+            name: perPage
+            value: "1"
+            disabled: false
+          - id: pair_6afef18d8be048d3baa9b1563e8ed6ab
+            name: page
+            value: "1"
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_44a7ade75fac46cea1a0e432c1e459f0',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE
+          }}/282c65a6-ddcb-49cc-836e-cd6c589c01d1"
+        name: show
+        meta:
+          id: req_ba2b06dc5f5d46f090d42911cfc00189
+          created: 1752802897533
+          modified: 1752803021192
+          isPrivate: false
+          sortKey: -1752520084372
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_44a7ade75fac46cea1a0e432c1e459f0',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: refunds
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+  - name: Upload
+    meta:
+      id: fld_49b4bc08e79842469dcd27eb37f53e3e
+      created: 1752849410416
+      modified: 1752849463456
+      sortKey: -1752849410416
+    children:
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE }}"
+        name: Create
+        meta:
+          id: req_9e57c736b70e4fc6b2558a9ca064eb31
+          created: 1752849465858
+          modified: 1752859584555
+          isPrivate: false
+          sortKey: -1752849465858
+        method: POST
+        body:
+          mimeType: multipart/form-data
+          params:
+            - id: pair_5f3c3c1b31c14faf91121d33b1e0e2e7
+              name: file
+              disabled: false
+              type: file
+              fileName: C:\Users\alexl\Downloads\node-js.png
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_44a7ade75fac46cea1a0e432c1e459f0',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.BASE_URL.BASE_URL }}{{ _.RESOURCE
+          }}/c0b04523cade5260fba1-node-js.png"
+        name: show
+        meta:
+          id: req_b5bce1f6a6ae4409821f310f45f2b177
+          created: 1752859525773
+          modified: 1752859596437
+          isPrivate: false
+          sortKey: -1752700037740
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.1.0
+        authentication:
+          type: bearer
+          token: "{% response 'body', 'req_44a7ade75fac46cea1a0e432c1e459f0',
+            'b64::JC50b2tlbg==::46b', 'always', 60 %}"
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+    environment:
+      RESOURCE: uploads
+    environmentPropertyOrder:
+      "&":
+        - RESOURCE
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_ebfb423d0b1eaaa5bd5005f42609b36f97c5c2de
+    created: 1751994014347
+    modified: 1751994014347
+environments:
+  name: Base Environment
+  meta:
+    id: env_ebfb423d0b1eaaa5bd5005f42609b36f97c5c2de
+    created: 1751994014344
+    modified: 1751994014344
+    isPrivate: false
+  subEnvironments:
+    - name: DEV
+      meta:
+        id: env_e240fcf814e945a0abd77fdb2421d304
+        created: 1751994023908
+        modified: 1751994087509
+        isPrivate: false
+        sortKey: 1751994023908
+      data:
+        BASE_URL:
+          BASE_URL: http://localhost:3333/
+      color: "#00fa04"

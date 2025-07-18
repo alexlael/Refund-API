@@ -34,27 +34,73 @@ class RefundsController {
     return response.status(201).json(refund);
   }
   async index(request: Request, response: Response) {
-
     const querySchema = z.object({
       name: z.string().optional().default(""),
-    })
-    const { name } = querySchema.parse(request.query);
+      page: z.coerce.number().optional().default(1),
+      perPage: z.coerce.number().optional().default(10),
+    });
+    const { name, page, perPage } = querySchema.parse(request.query);
+
+    //calcula os valores de "skip" para paginação
+    const skip = (page - 1) * perPage;
 
     const refunds = await prisma.refunds.findMany({
-      where:{
-        user:{
-          name:{
-            contains: name.trim()
-          }
-        }
+      skip,
+      take: perPage,
+      where: {
+        user: {
+          name: {
+            contains: name.trim(),
+          },
+        },
       },
-      orderBy:{createdAt: "desc"},
-      include:{
+      orderBy: { createdAt: "desc" },
+      include: {
         user: true,
-      }
+      },
     });
 
-    response.json(refunds);
+    //obter o total de registros para calcular o número de páginas
+    const totalRecords = await prisma.refunds.count({
+      where: {
+        user: {
+          name: {
+            contains: name.trim(),
+          },
+        },
+      },
+    });
+
+    const totalPages = Math.ceil(totalRecords / perPage);
+
+    response.json({refunds,
+      pagination: {
+        page,
+        perPage,
+        totalRecords,
+        totalPages: totalPages > 0 ? totalPages : 1,
+      },
+    });
+  }
+
+  async show(request: Request, response: Response){
+    const paramsSchema = z.object({
+      id: z.string().uuid("Invalid refund ID format"),
+    });
+
+    const { id } = paramsSchema.parse(request.params);
+
+    const refund = await prisma.refunds.findFirst({
+      where: { id },
+      include: { user: true },
+    });
+
+    if (!refund) {
+      throw new AppError("Refund not found", 404);
+    }
+
+    return response.json(refund);
+
   }
 }
 

@@ -19,4 +19,11 @@ refundsRoutes.get(
   refundsController.index
 );
 
+refundsRoutes.get(
+  "/:id",
+  verifyUserAuthorization(["employee", "manager"]),
+  // @ts-ignore
+  refundsController.show
+);
+
 export { refundsRoutes };
